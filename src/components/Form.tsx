@@ -48,7 +48,9 @@ const Form = (props: Props) => {
   useEffect(() => {
     if (type === "update") {
       const foundObject = todos.find((obj: Data) => obj.id === id);
-      SetData(foundObject);
+      if (foundObject) {
+        SetData(foundObject);
+      }
     }
   }, [type, todos, id]);
 

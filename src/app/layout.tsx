@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import ReduxProvider from "@/store/ReduxProvider";
+
 import Navbar from "@/layout/Navbar";
 
 import "./globals.scss";
