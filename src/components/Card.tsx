@@ -18,15 +18,22 @@ const Card = (props: Props) => {
   const dispatch = useDispatch();
 
   const [showEdit, setShowEdit] = useState(false);
-  const [open, setOpen] = useState(false);
 
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
   };
 
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   const handleDelete = () => {
     dispatch(remove(item.id));
+    handleCloseModal();
   };
 
   const handleEdit = (status: string) => {
@@ -47,10 +54,35 @@ const Card = (props: Props) => {
         <div className="flex items-center gap-2">
           <IconButton
             className="!absolute right-0 !text-white hover:!text-red-500"
-            onClick={handleDelete}
+            onClick={handleOpenModal}
           >
             <Close />
           </IconButton>
+          <MyModal
+            header="Delete Task?"
+            open={openModal}
+            handleClose={handleCloseModal}
+          >
+            <div className="mb-4">
+              Are you sure you want to delete <b>{item.title}</b> task?
+            </div>
+            <div className="flex justify-end items-center gap-3">
+              <Button
+                variant="contained"
+                className="!bg-white hover:!bg-zinc-100 !text-zinc-600 w-[100px] !border !border-solid !border-zinc-600"
+                onClick={handleCloseModal}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="contained"
+                className="!bg-red-500 hover:!bg-red-600 w-[100px]"
+                onClick={handleDelete}
+              >
+                Delete
+              </Button>
+            </div>
+          </MyModal>
         </div>
       </div>
 
